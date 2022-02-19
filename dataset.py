@@ -25,7 +25,8 @@ class AbsSummaries(Dataset):
         self.tokenizer = tokenizer
 
     def encode_str(self, s, lim, target=0):
-        t = self.tokenizer.encode_plus(s, max_length=lim, truncation=True, padding='max_length')
+        t = self.tokenizer.encode_plus(s, max_length=lim, 
+                                       truncation=True, padding='max_length')
         return t['input_ids'], t['attention_mask'] if not target else t['input_ids']
 
     def __len__(self):
