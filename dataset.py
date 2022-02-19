@@ -15,7 +15,7 @@ def load_tokenizer(save_path='./bert.tokenizer'):
         return tokenizer
     return BertTokenizerFast.from_pretrained(save_path)
 
-class AbsSummaries(Dataset):
+class AbsSummary(Dataset):
     def __init__(self, data_path, xcol, ycol, tokenizer, xmax=512, ymax=50):
         self.df = pd.read_csv(data_path, usecols=[xcol, ycol])
         self.xcol = xcol
