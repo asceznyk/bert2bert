@@ -19,11 +19,13 @@ def main(args):
         model = EncoderDecoderModel.from_encoder_decoder_pretrained(
             'bert-base-uncased', 'bert-base-uncased'
         )
-    model = warm_start(model, tokenizer).to(device)
-    
-    
+    model = warm_start(model, tokenizer).to(device) 
 
-    inputs = tokenizer(text, padding="max_length", truncation=True, max_length=SEQ_MAX_LEN, return_tensors="pt")
+    inputs = tokenizer(text, 
+        padding="max_length", 
+        truncation=True, 
+        max_length=SEQ_MAX_LEN, 
+        return_tensors="pt")
     input_ids = inputs.input_ids.to(device)
     attention_mask = inputs.attention_mask.to(device)
 
