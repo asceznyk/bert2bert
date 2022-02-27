@@ -19,8 +19,8 @@ def main(args):
     if args.ckpt_path: model.load_state_dict(torch.load(args.ckpt_path))
 
     inputs = tokenizer(args.text, padding="max_length", truncation=True, max_length=SEQ_MAX_LEN, return_tensors="pt")
-    input_ids = inputs.input_ids[0].to(device)
-    attention_mask = inputs.attention_mask[0].to(device)
+    input_ids = inputs.input_ids.to(device)
+    attention_mask = inputs.attention_mask.to(device)
 
     outputs = model.generate(input_ids, attention_mask=attention_mask)
     output_str = tokenizer.decode(outputs, skip_special_tokens=True)
