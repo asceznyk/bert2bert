@@ -54,7 +54,12 @@ def main(args):
 
     ##train encoder_decoder model
     fit(model, train_loader, valid_loader)
-   
+
+    del model
+    del tokenizer
+    del train_loader
+    del valid_loader
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--train_file', type=str, help='path for training csv')
