@@ -27,7 +27,7 @@ def main(args):
     train_loader = DataLoader(
         AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows), 
         batch_size=BATCH_SIZE,
-        shuffle=True,
+        shuffle=False,
         num_workers=2,
         pin_memory=True
     )
