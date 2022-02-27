@@ -9,7 +9,7 @@ from transformers import EncoderDecoderModel
 
 from config import *
 from dataset import *
-from trainer import *
+from fit import *
 
 def main(args):
     train_file, valid_file = args.train_file, args.valid_file
