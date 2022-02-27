@@ -9,6 +9,8 @@ from config import *
 from dataset import *
 
 def main(args):
+    text = text
+
     tokenizer = load_tokenizer()
     
     model = EncoderDecoderModel.from_encoder_decoder_pretrained(
@@ -18,18 +20,17 @@ def main(args):
     
     if args.ckpt_path: model.load_state_dict(torch.load(args.ckpt_path))
 
-    inputs = tokenizer(args.text, padding="max_length", truncation=True, max_length=SEQ_MAX_LEN, return_tensors="pt")
+    inputs = tokenizer(text, padding="max_length", truncation=True, max_length=SEQ_MAX_LEN, return_tensors="pt")
     input_ids = inputs.input_ids.to(device)
     attention_mask = inputs.attention_mask.to(device)
 
     outputs = model.generate(input_ids, attention_mask=attention_mask)
-    print(outputs)
     output_str = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     print(' ')
-    print('full text: ' + args.text)
+    print('text: ' + text)
     print('=' * 20)
-    print('summary: ' + output_text)
+    print('summary: ' + summary)
     print(' ')
 
     del model
