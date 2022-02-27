@@ -42,7 +42,7 @@ class AbsSummary(Dataset):
     def __getitem__(self, idx):
         x, xmask = self.encode_str(self.df.loc[idx, self.xcol], self.xmax)
         y, ymask = self.encode_str(self.df.loc[idx, self.ycol], self.ymax)
-        #y = torch.tensor([torch.tensor(-100) if token == self.tokenizer.pad_token_id else token for token in y])
+        y = torch.tensor([torch.tensor(-100) if token == self.tokenizer.pad_token_id else token for token in y])
         return x, xmask, y, ymask
 
 
