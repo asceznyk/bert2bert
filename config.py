@@ -1,6 +1,6 @@
 import torch
 
-EPOCHS = 5
+EPOCHS = 10
 SEQ_MAX_LEN = 512
 SUM_MAX_LEN = 128
 BATCH_SIZE = 8

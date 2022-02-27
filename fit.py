@@ -21,13 +21,13 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
                 outputs = model(input_ids=x, attention_mask=xmask, 
                                 labels=y, decoder_attention_mask=ymask,
                                 return_dict=True)
-                loss, logits = outputs.loss, outputs.logits 
+                loss = outputs.loss
                 avg_loss += loss.item() / len(loader)
 
             if is_train:
                 model.zero_grad() 
                 loss.backward() 
-                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) 
+                #torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) 
                 optimizer.step()
 
             pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}")     
