@@ -19,7 +19,7 @@ def main(args):
     tokenizer = load_tokenizer()
     
     ##model warm_starting
-    model = EncoderDecoderModel.from_encoder_decoder_model(
+    model = EncoderDecoderModel.from_encoder_decoder_pretrained(
         'bert-base-uncased', 'bert-base-uncased'
     )
 
