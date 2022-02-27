@@ -23,7 +23,8 @@ def main(args):
     attention_mask = inputs.attention_mask.to(device)
 
     outputs = model.generate(input_ids, attention_mask=attention_mask)
-    output_str = tokenizer.decode(outputs, skip_special_tokens=True)
+    print(outputs)
+    output_str = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     print(' ')
     print('full text: ' + input_text)
