@@ -18,7 +18,7 @@ def main(args):
     )
     model = warm_start(model, tokenizer).to(device)
     
-    #if args.ckpt_path: model.load_state_dict(torch.load(args.ckpt_path))
+    if args.ckpt_path: model.load_state_dict(torch.load(args.ckpt_path))
 
     inputs = tokenizer(text, padding="max_length", truncation=True, max_length=SEQ_MAX_LEN, return_tensors="pt")
     input_ids = inputs.input_ids.to(device)
