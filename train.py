@@ -37,7 +37,7 @@ def main(args):
 
     ##dataset prep
     train_loader = DataLoader(
-        AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows)
+        AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows), 
         batch_size=BATCH_SIZE,
         shuffle=True,
         num_workers=2,
