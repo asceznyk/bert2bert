@@ -32,7 +32,7 @@ class AbsSummary(Dataset):
         self.tokenizer = tokenizer
 
     def encode_str(self, s, lim):
-        return self.tokenizer(s, 
+        return self.tokenizer.encode(s, 
                        max_length=lim,  
                        truncation=True, 
                        padding='max_length',
