@@ -27,7 +27,7 @@ def main(args):
     output_str = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     print(' ')
-    print('full text: ' + input_text)
+    print('full text: ' + args.text)
     print('=' * 20)
     print('summary: ' + output_text)
     print(' ')
