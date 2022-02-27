@@ -32,11 +32,11 @@ class AbsSummary(Dataset):
         self.tokenizer = tokenizer
 
     def encode_str(self, s, lim):
-        return self.tokenizer.encode(s, 
+        return self.tokenizer(s, 
                        max_length=lim,  
                        truncation=True, 
                        padding='max_length',
-                       return_tensors='pt').input_ids 
+                       return_tensors='pt').input_ids[0] 
 
     def __len__(self):
         return self.df.shape[0]
