@@ -16,6 +16,8 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
         for step, batch in pbar: 
             batch = [i.to(device) for i in batch]
             x, y = batch
+
+            print(x.shape, y.shape)
             
             with torch.set_grad_enabled(is_train):  
                 outputs = model(input_ids=x, labels=y, return_dict=True)
