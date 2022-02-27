@@ -3,8 +3,6 @@ from tqdm import tqdm
 import numpy as np
 import pandas as pd
 
-from transformers import EncoderDecoderModel
-
 from config import *
 
 def fit(model, train_loader, valid_loader=None, ckpt_path=None): 
