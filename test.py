@@ -36,10 +36,21 @@ def main(args):
     model.config.num_beams = 4
 
     ##dataset prep
-    train_loader = DataLoader(AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows))
+    train_loader = DataLoader(
+        AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows)
+        batch_size=BATCH_SIZE,
+        shuffle=True,
+        num_workers=2,
+        pin_memory=True
+    )
     valid_loader = None
     if valid_file:
-        valid_loader = DataLoader(AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows//2)) 
+        valid_loader = DataLoader(
+            AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows//2),
+            batch_size=BATCH_SIZE,
+            num_workers=2,
+            pin_memory=True
+        ) 
 
     ##train encoder_decoder model
     fit(model, train_loader, valid_loader)
