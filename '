@@ -9,13 +9,8 @@ from transformers import EncoderDecoderModel
 
 from config import *
 from dataset import *
-from fit import *
 
 def main(args):
-    train_file, valid_file = args.train_file, args.valid_file
-    xcol, ycol = args.xcol, args.ycol
-    nrows = args.nrows
-
     tokenizer = load_tokenizer()
     
     ##model warm_starting
@@ -35,30 +30,18 @@ def main(args):
     model.config.length_penalty = 2.0
     model.config.num_beams = 4
 
-    ##dataset prep
-    train_loader = DataLoader(
-        AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows), 
-        batch_size=BATCH_SIZE,
-        shuffle=True,
-        num_workers=2,
-        pin_memory=True
-    )
-    valid_loader = None
-    if valid_file:
-        valid_loader = DataLoader(
-            AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows//2),
-            batch_size=BATCH_SIZE,
-            num_workers=2,
-            pin_memory=True
-        ) 
+    inputs = tokenizer(args.text, padding="max_length", truncation=True, max_length=SEQ_MAX_LEN, return_tensors="pt")
+    input_ids = inputs.input_ids.to(device)
+    attention_mask = inputs.attention_mask.to(device)
 
-    ##train encoder_decoder model
-    fit(model, train_loader, valid_loader, args.ckpt_path)
+    outputs = model.generate(input_ids, attention_mask=attention_mask)
+    output_str = tokenizer.decode(outputs, skip_special_tokens=True)
+
+    print(input_text)
+    print(output_text)
 
     del model
     del tokenizer
-    del train_loader
-    del valid_loader
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -67,7 +50,6 @@ if __name__ == '__main__':
     parser.add_argument('--xcol', type=str, help='inputs')
     parser.add_argument('--ycol', type=str, help='labels')
     parser.add_argument('--nrows', type=int, default=10000, help='no of rows used for training')
-    parser.add_argument('--ckpt_path', type=str, default='./encdec.summarizer', help='ckpt_path for saving model weights')
 
     options = parser.parse_args()
     main(options)
