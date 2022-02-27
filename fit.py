@@ -40,6 +40,7 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
         valid_loss = run_epoch('valid') if valid_loader is not None else train_loss
 
         if ckpt_path is not None and valid_loss < best_loss:
+            print(f'saving model weights to {ckpt_path}...')
             best_loss = valid_loss
             torch.save(model.state_dict(), ckpt_path)
 
