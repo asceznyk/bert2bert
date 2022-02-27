@@ -9,7 +9,7 @@ from config import *
 from dataset import *
 
 def main(args):
-    text = text
+    text = args.text
 
     tokenizer = load_tokenizer()
     
