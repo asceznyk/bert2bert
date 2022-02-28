@@ -46,8 +46,8 @@ def main(args):
             pin_memory=True
         )
 
-    train_data = AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows)
-    valid_data = AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows//2)
+    #train_data = AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows)
+    #valid_data = AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows//2)
 
     ##train encoder_decoder model
     '''training_args = Seq2SeqTrainingArguments(

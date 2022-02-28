@@ -13,13 +13,11 @@ def main(args):
 
     tokenizer = load_tokenizer()
     
-    if args.ckpt_path:
-        model = EncoderDecoderModel.from_pretrained(args.ckpt_path)
-    else: 
-        model = EncoderDecoderModel.from_encoder_decoder_pretrained(
-            'bert-base-uncased', 'bert-base-uncased'
-        )
-    model = warm_start(model, tokenizer).to(device) 
+    model = EncoderDecoderModel.from_encoder_decoder_pretrained(
+        'bert-base-uncased', 'bert-base-uncased'
+    )
+    model = warm_start(model, tokenizer).to(device)
+    model.load_state_dict(torch.load(args.ckpt_path))
 
     inputs = tokenizer(text, 
         padding="max_length", 

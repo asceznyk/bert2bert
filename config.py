@@ -14,17 +14,12 @@ def warm_start(model, tokenizer):
     model.config.pad_token_id = tokenizer.pad_token_id
     model.config.vocab_size = model.config.decoder.vocab_size
 
-    model.encoder.config.max_length = SEQ_MAX_LEN
-    model.decoder.config.max_length = SUM_MAX_LEN
-
-    print(model.config)
-
-    '''model.config.max_length = SUM_MAX_LEN 
+    model.config.max_length = SUM_MAX_LEN 
     model.config.min_length = 56
     model.config.no_repeat_ngram_size = 3
     model.config.early_stopping = True
     model.config.length_penalty = 2.0
-    model.config.num_beams = 4'''
+    model.config.num_beams = 4
 
     return model
 
