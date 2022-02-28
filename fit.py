@@ -33,7 +33,7 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
                 scheduler.step()
                 optimizer.step()
 
-            pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, latest lr: {scheduler.get_last_lr()}")     
+            pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, latest lr: {scheduler.get_last_lr()[0]}")     
         return avg_loss
 
     model.to(device)
