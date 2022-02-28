@@ -42,7 +42,7 @@ def main(args):
             AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows//2),
             batch_size=BATCH_SIZE,
             num_workers=2,
-            pin_memory=True
+            pin_memory=False
         )
 
     ##train encoder_decoder model 
