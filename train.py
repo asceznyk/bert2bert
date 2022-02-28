@@ -63,7 +63,7 @@ def main(args):
     )
 
     trainer = Seq2SeqTrainer(
-        model=bert2bert,
+        model=model,
         tokenizer=tokenizer,
         args=training_args,
         train_dataset=train_data,
