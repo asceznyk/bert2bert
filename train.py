@@ -69,8 +69,8 @@ def main(args):
         model=model,
         tokenizer=tokenizer,
         args=training_args,
-        train_dataset=train_data[0],
-        eval_dataset=valid_data[0],
+        train_dataset=train_data,
+        eval_dataset=valid_daa,
     )
     trainer.train()
 
