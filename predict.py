@@ -38,6 +38,7 @@ def main(args):
 
     del model
     del tokenizer
+    torch.cuda.empty_cache()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
