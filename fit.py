@@ -40,7 +40,7 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
 
     best_loss = float('inf') 
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE) 
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=EPOCHS)
+    scheduler = optim.lr_scheduler.CyclicLR(optimizer, base_lr=LEARNING_RATE, max_lr=LEARNING_RATE)
     for e in range(EPOCHS):
         train_loss = run_epoch('train')
         valid_loss = run_epoch('valid') if valid_loader is not None else train_loss
