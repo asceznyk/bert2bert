@@ -45,7 +45,7 @@ def main(args):
         )'''
 
     train_data = AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows)
-    valid_data = AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows)
+    valid_data = AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows//2)
 
     ##train encoder_decoder model
     training_args = Seq2SeqTrainingArguments(
@@ -69,8 +69,8 @@ def main(args):
         model=model,
         tokenizer=tokenizer,
         args=training_args,
-        train_dataset=train_data,
-        eval_dataset=valid_data,
+        train_dataset=train_data[0],
+        eval_dataset=valid_data[0],
     )
     trainer.train()
 
