@@ -6,6 +6,7 @@ import pandas as pd
 from torch.utils.data import DataLoader
 
 from transformers import EncoderDecoderModel
+from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 
 from config import *
 from dataset import *
@@ -24,7 +25,7 @@ def main(args):
     model = warm_start(model, tokenizer)
 
     ##dataset prep
-    train_loader = DataLoader(
+    '''train_loader = DataLoader(
         AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows), 
         batch_size=BATCH_SIZE,
         shuffle=True,
@@ -38,10 +39,39 @@ def main(args):
             batch_size=BATCH_SIZE,
             num_workers=2,
             pin_memory=True
-        ) 
+        )'''
+
+    train_data = AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows)
+    valid_data = AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows)
 
     ##train encoder_decoder model
-    fit(model, train_loader, valid_loader, args.ckpt_path)
+    training_args = Seq2SeqTrainingArguments(
+        predict_with_generate=True,
+        evaluation_strategy="steps",
+        per_device_train_batch_size=BATCH_SIZE,
+        per_device_eval_batch_size=BATCH_SIZE
+        fp16=True, 
+        output_dir="./",
+        logging_steps=10,
+        save_steps=10,
+        eval_steps=4,
+        # logging_steps=1000,
+        # save_steps=500,
+        # eval_steps=7500,
+        # warmup_steps=2000,
+        # save_total_limit=3,
+    )
+
+    trainer = Seq2SeqTrainer(
+        model=bert2bert,
+        tokenizer=tokenizer,
+        args=training_args,
+        train_dataset=train_data,
+        eval_dataset=valid_data,
+    )
+    trainer.train()
+
+    #fit(model, train_loader, valid_loader, args.ckpt_path)
 
     del model
     del tokenizer
