@@ -34,19 +34,20 @@ class AbsSummary(Dataset):
     def encode_str(self, s, lim):
         t = self.tokenizer(s, max_length=lim, truncation=True, 
                            padding='max_length', return_tensors='pt')
-        #return t.input_ids[0], t.attention_mask[0]
-        return t
+        return t.input_ids[0], t.attention_mask[0] 
 
     def __len__(self):
         return self.df.shape[0]
 
     def __getitem__(self, idx):
-        #x, xmask = self.encode_str(self.df.loc[idx, self.xcol], self.xmax)
-        #y, ymask = self.encode_str(self.df.loc[idx, self.ycol], self.ymax)
-        #y = torch.tensor([torch.tensor(-100) if token == self.tokenizer.pad_token_id else token for token in y])
-        x = self.encode_str(self.df.loc[idx, self.xcol], self.xmax)
-        y = self.encode_str(self.df.loc[idx, self.ycol], self.ymax)
-        #return x, xmask, y, ymask
-        return x, y
+        x, xmask = self.encode_str(self.df.loc[idx, self.xcol], self.xmax)
+        y, ymask = self.encode_str(self.df.loc[idx, self.ycol], self.ymax)
+        y = torch.tensor([torch.tensor(-100) if token == self.tokenizer.pad_token_id else token for token in y])
+        return {
+            'input_ids':x,
+            'attention_mask':xmask,
+            'decoder_input_ids':y,
+            'decoder_attetention_mask':ymask
+        }
 
 
