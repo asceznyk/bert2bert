@@ -12,6 +12,9 @@ from config import *
 from dataset import *
 from fit import *
 
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["WANDB_DISABLED"] = "true"
+
 def main(args):
     train_file, valid_file = args.train_file, args.valid_file
     xcol, ycol = args.xcol, args.ycol
