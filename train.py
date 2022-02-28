@@ -14,7 +14,7 @@ from fit import *
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["WANDB_DISABLED"] = "true"
-os.encoder["CUDA_LAUNCH_BLOCKING"] = 1
+os.environ["CUDA_LAUNCH_BLOCKING"] = 1
 
 def main(args):
     train_file, valid_file = args.train_file, args.valid_file
