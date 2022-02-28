@@ -26,6 +26,7 @@ def main(args):
         'bert-base-uncased', 'bert-base-uncased'
     )
     model = warm_start(model, tokenizer)
+    model.resize_token_embeddings(len(tokenizer))
     model.to(device)
 
     ##dataset prep
