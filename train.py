@@ -49,7 +49,7 @@ def main(args):
         predict_with_generate=True,
         evaluation_strategy="steps",
         per_device_train_batch_size=BATCH_SIZE,
-        per_device_eval_batch_size=BATCH_SIZE
+        per_device_eval_batch_size=BATCH_SIZE,
         fp16=True, 
         output_dir="./",
         logging_steps=10,
