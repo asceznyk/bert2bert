@@ -27,7 +27,7 @@ def main(args):
         'bert-base-uncased', 'bert-base-uncased'
     )
     model = warm_start(model, tokenizer)
-    model.to(device)
+    model = model.to(device)
 
     ##dataset prep
     '''train_loader = DataLoader(
