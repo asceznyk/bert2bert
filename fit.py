@@ -27,7 +27,7 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
             if is_train:
                 model.zero_grad() 
                 loss.backward() 
-                #torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) 
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) 
                 optimizer.step()
 
             pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}")     
