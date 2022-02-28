@@ -14,7 +14,7 @@ def warm_start(model, tokenizer):
     model.config.pad_token_id = tokenizer.pad_token_id
     model.config.vocab_size = model.config.decoder.vocab_size
 
-    model.config.max_length = SEQ_MAX_LEN
+    model.config.max_length = SUM_MAX_LEN 
     model.config.min_length = 56
     model.config.no_repeat_ngram_size = 3
     model.config.early_stopping = True
