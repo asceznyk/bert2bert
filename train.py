@@ -70,7 +70,7 @@ def main(args):
         tokenizer=tokenizer,
         args=training_args,
         train_dataset=train_data,
-        eval_dataset=valid_daa,
+        eval_dataset=valid_data,
     )
     trainer.train()
 
