@@ -47,7 +47,7 @@ class AbsSummary(Dataset):
             'input_ids':x,
             'attention_mask':xmask,
             'decoder_input_ids':y,
-            'decoder_attetention_mask':ymask
+            'decoder_attention_mask':ymask
         }
 
 
