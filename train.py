@@ -16,8 +16,6 @@ os.environ["WANDB_DISABLED"] = "true"
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 
 def main(args):
-    torch.cuda.empty_cache()
-
     train_file, valid_file = args.train_file, args.valid_file
     xcol, ycol = args.xcol, args.ycol
     nrows = args.nrows
