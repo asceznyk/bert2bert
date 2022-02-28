@@ -3,6 +3,8 @@ from tqdm import tqdm
 import numpy as np
 import pandas as pd
 
+import torch.optim as optim
+
 from config import *
 
 def fit(model, train_loader, valid_loader=None, ckpt_path=None): 
@@ -27,16 +29,18 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
             if is_train:
                 model.zero_grad() 
                 loss.backward() 
-                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) 
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+                scheduler.step()
                 optimizer.step()
 
-            pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}")     
+            pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, latest lr: {scheduler.get_last_lr()}")     
         return avg_loss
 
     model.to(device)
 
     best_loss = float('inf') 
-    optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE) 
+    optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE) 
+    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=EPOCHS)
     for e in range(EPOCHS):
         train_loss = run_epoch('train')
         valid_loss = run_epoch('valid') if valid_loader is not None else train_loss
