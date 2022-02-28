@@ -29,18 +29,19 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
             if is_train:
                 model.zero_grad() 
                 loss.backward() 
-                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-                scheduler.step()
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0) 
                 optimizer.step()
+            else:
+                scheduler.step(loss)
 
-            pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, latest lr: {scheduler.get_last_lr()[0]}")     
+            pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, latest lr: {optimizer.lr}")     
         return avg_loss
 
     model.to(device)
 
     best_loss = float('inf') 
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE) 
-    scheduler = optim.lr_scheduler.CyclicLR(optimizer, base_lr=LEARNING_RATE, max_lr=LEARNING_RATE)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min')
     for e in range(EPOCHS):
         train_loss = run_epoch('train')
         valid_loss = run_epoch('valid') if valid_loader is not None else train_loss
