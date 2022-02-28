@@ -30,7 +30,7 @@ def main(args):
     model = model.to(device)
 
     ##dataset prep
-    '''train_loader = DataLoader(
+    train_loader = DataLoader(
         AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows), 
         batch_size=BATCH_SIZE,
         shuffle=True,
@@ -44,13 +44,13 @@ def main(args):
             batch_size=BATCH_SIZE,
             num_workers=2,
             pin_memory=True
-        )'''
+        )
 
     train_data = AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows)
     valid_data = AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows//2)
 
     ##train encoder_decoder model
-    training_args = Seq2SeqTrainingArguments(
+    '''training_args = Seq2SeqTrainingArguments(
         predict_with_generate=True,
         evaluation_strategy="steps",
         per_device_train_batch_size=BATCH_SIZE,
@@ -74,9 +74,9 @@ def main(args):
         train_dataset=train_data,
         eval_dataset=valid_data,
     )
-    trainer.train()
+    trainer.train()'''
 
-    #fit(model, train_loader, valid_loader, args.ckpt_path)
+    fit(model, train_loader, valid_loader, args.ckpt_path)
 
     del model
     del tokenizer
