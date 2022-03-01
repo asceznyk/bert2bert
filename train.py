@@ -26,8 +26,6 @@ def main(args):
         'bert-base-uncased', 'bert-base-uncased'
     )'''
 
-    from transformers import BertConfig, EncoderDecoderConfig, EncoderDecoderModel
-
     # Initializing a BERT bert-base-uncased style configuration
     config_encoder = BertConfig()
     config_decoder = BertConfig()
