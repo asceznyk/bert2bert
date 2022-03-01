@@ -5,7 +5,7 @@ import pandas as pd
 
 from torch.utils.data import DataLoader
 
-from transformers import EncoderDecoderModel
+from transformers import EncoderDecoderModel, EncoderDecoderConfig
 
 from config import *
 from dataset import *
@@ -25,7 +25,8 @@ def main(args):
     '''model = EncoderDecoderModel.from_encoder_decoder_pretrained(
         'bert-base-uncased', 'bert-base-uncased'
     )'''
-    model = EncoderDecoderModel()
+    edconf = EncoderDecoderConfig()
+    model = EncoderDecoderModel(edconf)
     model = warm_start(model, tokenizer)
     model = model.to(device)
 
