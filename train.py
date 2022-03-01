@@ -5,7 +5,7 @@ import pandas as pd
 
 from torch.utils.data import DataLoader
 
-from transformers import EncoderDecoderModel, EncoderDecoderConfig
+from transformers import BertConfig, EncoderDecoderConfig, EncoderDecoderModel
 
 from config import *
 from dataset import *
@@ -25,8 +25,18 @@ def main(args):
     '''model = EncoderDecoderModel.from_encoder_decoder_pretrained(
         'bert-base-uncased', 'bert-base-uncased'
     )'''
-    edconf = EncoderDecoderConfig()
-    model = EncoderDecoderModel(edconf)
+
+    from transformers import BertConfig, EncoderDecoderConfig, EncoderDecoderModel
+
+    # Initializing a BERT bert-base-uncased style configuration
+    config_encoder = BertConfig()
+    config_decoder = BertConfig()
+
+    encdec_config = EncoderDecoderConfig.from_encoder_decoder_configs(config_encoder, config_decoder)
+
+    # Initializing a Bert2Bert model from the bert-base-uncased style configurations
+    model = EncoderDecoderModel(config=encdec_config)
+
     model = warm_start(model, tokenizer)
     model = model.to(device)
 
