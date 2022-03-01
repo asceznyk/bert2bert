@@ -22,9 +22,10 @@ def main(args):
 
     tokenizer = load_tokenizer()
     
-    model = EncoderDecoderModel.from_encoder_decoder_pretrained(
+    '''model = EncoderDecoderModel.from_encoder_decoder_pretrained(
         'bert-base-uncased', 'bert-base-uncased'
-    )
+    )'''
+    model = EncoderDecoderModel()
     model = warm_start(model, tokenizer)
     model = model.to(device)
 
@@ -57,7 +58,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--train_file', type=str, help='path for training csv')
-    parser.add_argument('--valid_file', type=str, help='full csv file with labels')
+    parser.add_argument('--valid_file', type=str, default='' help='full csv file with labels')
     parser.add_argument('--xcol', type=str, help='inputs')
     parser.add_argument('--ycol', type=str, help='labels')
     parser.add_argument('--nrows', type=int, default=10000, help='no of rows used for training')
