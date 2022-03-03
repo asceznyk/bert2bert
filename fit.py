@@ -17,12 +17,11 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
         pbar = tqdm(enumerate(loader), total=len(loader))
         for step, batch in pbar:
             batch = (v.to(device) for k, v in batch.items())
-            print(batch)
-            x, xmask, y, ymask = batch
+            x, xmask, labels, y, ymask = batch
             
             with torch.set_grad_enabled(is_train):  
                 outputs = model(input_ids=x, attention_mask=xmask, 
-                                labels=y, decoder_attention_mask=ymask,
+                                labels=labels, decoder_attention_mask=ymask,
                                 return_dict=True)
                 loss = outputs.loss
                 avg_loss += loss.item() / len(loader)
