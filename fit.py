@@ -17,6 +17,7 @@ def fit(model, train_loader, valid_loader=None, ckpt_path=None):
         pbar = tqdm(enumerate(loader), total=len(loader))
         for step, batch in pbar:
             batch = (v.to(device) for k, v in batch.items())
+            print(batch)
             x, xmask, y, ymask = batch
             
             with torch.set_grad_enabled(is_train):  
