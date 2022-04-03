@@ -48,7 +48,7 @@ def main(args):
         )
 
     ##train encoder_decoder model 
-    fit(model, train_loader, valid_loader, epochs=args.epochs, lr=args.lr ckpt_path=args.ckpt_path)
+    fit(model, train_loader, valid_loader, epochs=args.epochs, lr=args.lr, ckpt_path=args.ckpt_path)
 
     del model
     del tokenizer
