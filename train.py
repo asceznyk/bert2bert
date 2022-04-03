@@ -66,7 +66,7 @@ if __name__ == '__main__':
     parser.add_argument('--ckpt_path', type=str, default='./encdec.summarizer', help='ckpt_path for saving model weights')
     parser.add_argument('--epochs', type=int, default=5)
     parser.add_argument('--batch_size', type=int, default=4)
-    parser.add_argument('--lr', type=int, default=1e-5)
+    parser.add_argument('--lr', type=float, default=1e-5)
 
     options = parser.parse_args()
     main(options)
