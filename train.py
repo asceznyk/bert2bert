@@ -48,7 +48,7 @@ def main(args):
         )
 
     ##train encoder_decoder model 
-    fit(model, train_loader, valid_loader, epochs=args.epochs, ckpt_path=args.ckpt_path)
+    fit(model, train_loader, valid_loader, epochs=args.epochs, lr=args.lr ckpt_path=args.ckpt_path)
 
     del model
     del tokenizer
@@ -66,6 +66,7 @@ if __name__ == '__main__':
     parser.add_argument('--ckpt_path', type=str, default='./encdec.summarizer', help='ckpt_path for saving model weights')
     parser.add_argument('--epochs', type=int, default=5)
     parser.add_argument('--batch_size', type=int, default=4)
+    parser.add_argument('--lr', type=int, default=1e-5)
 
     options = parser.parse_args()
     main(options)
