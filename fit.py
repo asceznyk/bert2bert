@@ -27,9 +27,9 @@ def fit(model, train_loader, valid_loader=None, epochs=5, lr=1e-5, ckpt_path=Non
                 avg_loss += loss.item() / len(loader)
 
             if is_train: 
+                optimizer.zero_grad() 
                 loss.backward() 
                 optimizer.step() 
-                optimizer.zero_grad() 
                 #scheduler.step() 
 
             pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, latest lr: {optimizer.param_groups[0]['lr']}")     
