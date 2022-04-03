@@ -2,7 +2,7 @@ import torch
 
 EPOCHS = 10
 SEQ_MAX_LEN = 512
-SUM_MAX_LEN = 128
+SUM_MAX_LEN = 64
 BATCH_SIZE = 8
 LEARNING_RATE = 1e-5 #1e-4
 
