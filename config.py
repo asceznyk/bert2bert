@@ -1,7 +1,7 @@
 import torch
 
 SEQ_MAX_LEN = 512
-SUM_MAX_LEN = 64
+SUM_MAX_LEN = 32
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

@@ -23,7 +23,7 @@ def light_load_csv(path, cols, nrows=None, chunksize=1000):
     return xdf
 
 class AbsSummary(Dataset):
-    def __init__(self, data_path, xcol, ycol, tokenizer, xmax=512, ymax=64, nrows=None):
+    def __init__(self, data_path, xcol, ycol, tokenizer, xmax=512, ymax=48, nrows=None):
         self.df = light_load_csv(data_path, [xcol, ycol], nrows=nrows) 
         self.xcol = xcol
         self.ycol = ycol
