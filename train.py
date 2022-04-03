@@ -19,6 +19,7 @@ def main(args):
     train_file, valid_file = args.train_file, args.valid_file
     xcol, ycol = args.xcol, args.ycol
     nrows = args.nrows
+    batch_size = args.batch_size
 
     tokenizer = load_tokenizer()
     
@@ -32,7 +33,7 @@ def main(args):
     ##dataset prep
     train_loader = DataLoader(
         AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows), 
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size
         shuffle=True,
         num_workers=2,
         pin_memory=True
@@ -41,13 +42,13 @@ def main(args):
     if valid_file:
         valid_loader = DataLoader(
             AbsSummary(valid_file, xcol, ycol, tokenizer, nrows=nrows//2),
-            batch_size=BATCH_SIZE,
+            batch_size=batch_size,
             num_workers=2,
             pin_memory=False
         )
 
     ##train encoder_decoder model 
-    fit(model, train_loader, valid_loader, args.ckpt_path)
+    fit(model, train_loader, valid_loader, epochs=args.epochs, ckpt_path=args.ckpt_path)
 
     del model
     del tokenizer
@@ -63,6 +64,8 @@ if __name__ == '__main__':
     parser.add_argument('--ycol', type=str, help='labels')
     parser.add_argument('--nrows', type=int, default=10000, help='no of rows used for training')
     parser.add_argument('--ckpt_path', type=str, default='./encdec.summarizer', help='ckpt_path for saving model weights')
+    parser.add_argument('--epochs', type=int, default=5)
+    parser.add_argument('--batch_size', type=int, default=4)
 
     options = parser.parse_args()
     main(options)
