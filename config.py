@@ -1,10 +1,7 @@
 import torch
 
-EPOCHS = 
 SEQ_MAX_LEN = 512
 SUM_MAX_LEN = 64
-BATCH_SIZE = 8
-LEARNING_RATE = 1e-5 #1e-4
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
