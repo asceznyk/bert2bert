@@ -14,8 +14,8 @@ def warm_start(model:EncoderDecoderModel, tokenizer:BertTokenizerFast) -> Encode
     model.config.pad_token_id = tokenizer.pad_token_id
     model.config.vocab_size = mode.encoder.config.vocab_size
 
-    model.config.max_length = 64
-    model.config.min_length = 64
+    model.config.max_length = 142
+    model.config.min_length = 56
     model.config.no_repeat_ngram_size = 3
     model.config.early_stopping = True
     model.config.length_penalty = 2.0
