@@ -5,9 +5,33 @@ import pandas as pd
 
 import torch.optim as optim
 
-from config import *
+from transformers import BertTokenizerFast, EncoderDecoderModel
 
-def fit(model, train_loader, valid_loader=None, epochs=5, lr=1e-5, ckpt_path=None): 
+
+def warm_start(model:EncoderDecoderModel, tokenizer:BertTokenizerFast) -> EncoderDecoderModel:
+    model.config.decoder_start_token_id = tokenizer.cls_token_id
+    model.config.eos_token_id = tokenizer.sep_token_id
+    model.config.pad_token_id = tokenizer.pad_token_id
+    model.config.vocab_size = mode.encoder.config.vocab_size
+
+    model.config.max_length = 64
+    model.config.min_length = 64
+    model.config.no_repeat_ngram_size = 3
+    model.config.early_stopping = True
+    model.config.length_penalty = 2.0
+    model.config.num_beams = 4
+
+    return model
+
+
+def fit(
+    model:EncoderDecoderModel, 
+    train_loader:DataLoader, 
+    valid_loader:Union[None,DataLoader]=None, 
+    epochs:int=5, 
+    lr:float=1e-5, 
+    ckpt_path:Union[str,None]=None
+): 
     def run_epoch(split):
         is_train = split == 'train' 
         model.train(is_train)

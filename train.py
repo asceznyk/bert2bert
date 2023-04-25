@@ -7,13 +7,13 @@ from torch.utils.data import DataLoader
 
 from transformers import BertConfig, EncoderDecoderConfig, EncoderDecoderModel
 
-from config import *
 from dataset import *
 from fit import *
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["WANDB_DISABLED"] = "true"
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
+
 
 def main(args):
     train_file, valid_file = args.train_file, args.valid_file
@@ -22,15 +22,13 @@ def main(args):
     batch_size = args.batch_size
 
     tokenizer = load_tokenizer()
-    
+
     model = EncoderDecoderModel.from_encoder_decoder_pretrained(
         'bert-base-uncased', 'bert-base-uncased'
     )
-
     model = warm_start(model, tokenizer)
     model = model.to(device)
 
-    ##dataset prep
     train_loader = DataLoader(
         AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows), 
         batch_size=batch_size,
@@ -47,7 +45,6 @@ def main(args):
             pin_memory=False
         )
 
-    ##train encoder_decoder model 
     fit(model, train_loader, valid_loader, epochs=args.epochs, lr=args.lr, ckpt_path=args.ckpt_path)
 
     del model
