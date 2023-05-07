@@ -66,12 +66,12 @@ def fit(
             pbar.set_description(f"loss: {loss.item():.3f}, avg: {avg_loss:.2f}")
         return avg_loss
 
-    print(f"init lr:{lr}")
+    print(f"init lr: {lr}")
 
     best_loss = float('inf')
     optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = optim.lr_scheduler.OneCycleLR(
-        optimizer, max_lr=1e-4, steps_per_epoch=len(train_loader), epochs=epochs
+        optimizer, max_lr=lr, steps_per_epoch=len(train_loader), epochs=epochs
     )
     for e in range(epochs):
         train_loss = run_epoch('train')
@@ -79,7 +79,7 @@ def fit(
         valid_loss = run_epoch('valid') if valid_loader is not None else train_loss
 
         print(f"epoch: {e+1}/{epochs}")
-        print(f"lr: {scheduler.get_last_lr()}")
+        print(f"lr: {scheduler.get_last_lr()[0]}")
 
         if ckpt_path is not None and valid_loss < best_loss:
             print(f'saving model weights to {ckpt_path}...')
