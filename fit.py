@@ -66,6 +66,8 @@ def fit(
             pbar.set_description(f"loss: {loss.item():.3f}, avg: {avg_loss:.2f}")
         return avg_loss
 
+    print(f"init lr:{lr}")
+
     best_loss = float('inf')
     optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = optim.lr_scheduler.OneCycleLR(
