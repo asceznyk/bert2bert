@@ -30,7 +30,7 @@ def main(args):
     model = model.to(device)
 
     train_loader = DataLoader(
-        AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows), 
+        AbsSummary(train_file, xcol, ycol, tokenizer, nrows=nrows),
         batch_size=batch_size,
         shuffle=True,
         num_workers=2,
@@ -68,5 +68,5 @@ if __name__ == '__main__':
     options = parser.parse_args()
     main(options)
 
- 
+
 

@@ -16,7 +16,7 @@ def warm_start(model:EncoderDecoderModel, tokenizer:BertTokenizerFast) -> Encode
     model.config.decoder_start_token_id = tokenizer.cls_token_id
     model.config.eos_token_id = tokenizer.sep_token_id
     model.config.pad_token_id = tokenizer.pad_token_id
-    model.config.vocab_size = mode.encoder.config.vocab_size
+    model.config.vocab_size = model.encoder.config.vocab_size
 
     model.config.max_length = 142
     model.config.min_length = 56
