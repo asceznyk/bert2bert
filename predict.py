@@ -18,6 +18,7 @@ def main(args):
         'bert-base-uncased', 'bert-base-uncased'
     )
     model.load_state_dict(torch.load(args.ckpt_path))
+    model.to(device)
 
     inputs = tokenizer(
         text,
@@ -34,7 +35,7 @@ def main(args):
 
     print(' ')
     print('text: ' + text)
-    print('=' * 20)
+    print('= ' * 20)
     print('summary: ' + summary)
     print(' ')
 
