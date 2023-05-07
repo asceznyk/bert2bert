@@ -34,7 +34,7 @@ def fit(
     train_loader:DataLoader,
     valid_loader:Union[None,DataLoader]=None,
     epochs:int=5,
-    lr:float=1e-5,
+    lr:float=1e-3,
     ckpt_path:Union[str,None]=None,
     device=torch.device
 ):
@@ -71,8 +71,12 @@ def fit(
 
     best_loss = float('inf')
     optimizer = optim.Adam(model.parameters(), lr=lr)
+    scheduler = optim.lr_scheduler.OneCycleLR(
+        optimizer, max_lr=1e-4, steps_per_epoch=len(train_loader), epochs=epochs
+    )
     for e in range(epochs):
         train_loss = run_epoch('train')
+        scheduler.step()
         valid_loss = run_epoch('valid') if valid_loader is not None else train_loss
 
         if ckpt_path is not None and valid_loss < best_loss:
