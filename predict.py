@@ -17,7 +17,6 @@ def main(args):
     model = EncoderDecoderModel.from_encoder_decoder_pretrained(
         'bert-base-uncased', 'bert-base-uncased'
     )
-    model = warm_start(model, tokenizer).to(device)
     model.load_state_dict(torch.load(args.ckpt_path))
 
     inputs = tokenizer(
