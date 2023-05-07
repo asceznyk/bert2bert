@@ -1,3 +1,5 @@
+from typing import Union, List
+
 from tqdm import tqdm
 
 import numpy as np
