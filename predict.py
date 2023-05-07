@@ -6,7 +6,7 @@ import pandas as pd
 from transformers import EncoderDecoderModel
 
 from dataset import *
-
+from fit import *
 
 def main(args):
     text = args.text
