@@ -30,7 +30,7 @@ def main(args):
     input_ids = inputs.input_ids.to(device)
     attention_mask = inputs.attention_mask.to(device)
 
-    outputs = model.generate(input_ids, attention_mask=attention_mask)
+    outputs = model.generate(input_ids=input_ids, attention_mask=attention_mask)
     summary = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     print(' ')
