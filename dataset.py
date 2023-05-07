@@ -29,16 +29,16 @@ def light_load_csv(path:str, cols:List, nrows:Union[None,int]=None, chunksize:in
 
 class AbsSummary(Dataset):
     def __init__(
-        self, 
-        data_path:str, 
-        xcol:str, 
-        ycol:str, 
-        tokenizer:BertTokenizerFast, 
-        xmax:int=512, 
-        ymax:int=48, 
+        self,
+        data_path:str,
+        xcol:str,
+        ycol:str,
+        tokenizer:BertTokenizerFast,
+        xmax:int=512,
+        ymax:int=48,
         nrows:Union[None,int]=None
     ):
-        self.df = light_load_csv(data_path, [xcol, ycol], nrows=nrows) 
+        self.df = light_load_csv(data_path, [xcol, ycol], nrows=nrows)
         self.xcol = xcol
         self.ycol = ycol
         self.xmax = xmax
@@ -46,9 +46,9 @@ class AbsSummary(Dataset):
         self.tokenizer = tokenizer
 
     def encode_str(self, s:str, lim:int) -> Tuple[torch.Tensor, torch.Tensor]:
-        t = self.tokenizer(s, max_length=lim, truncation=True, 
+        t = self.tokenizer(s, max_length=lim, truncation=True,
                            padding='max_length', return_tensors='pt')
-        return t.input_ids[0], t.attention_mask[0] 
+        return t.input_ids[0], t.attention_mask[0]
 
     def __len__(self) -> int:
         return self.df.shape[0]
@@ -58,7 +58,7 @@ class AbsSummary(Dataset):
         y, ymask = self.encode_str(self.df.loc[idx, self.ycol], self.ymax)
         labels = y[1:].clone()
         labels = torch.tensor([
-            torch.tensor(-100) if t == self.tokenizer.pad_token_id else t 
+            torch.tensor(-100) if t == self.tokenizer.pad_token_id else t
             for t in labels
         ])
         return {
