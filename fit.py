@@ -43,9 +43,6 @@ def fit(
         model.train(is_train)
         loader = train_loader if is_train else valid_loader
 
-        print(f"epoch: {e+1}/{epochs}")
-        print(f"lr: {optimizer.param_groups[0]['lr']}")
-
         avg_loss = 0
         pbar = tqdm(enumerate(loader), total=len(loader))
         for step, batch in pbar:
@@ -78,6 +75,9 @@ def fit(
         train_loss = run_epoch('train')
         scheduler.step()
         valid_loss = run_epoch('valid') if valid_loader is not None else train_loss
+
+        print(f"epoch: {e+1}/{epochs}")
+        print(f"lr: {scheduler.get_last_lr()}")
 
         if ckpt_path is not None and valid_loss < best_loss:
             print(f'saving model weights to {ckpt_path}...')
