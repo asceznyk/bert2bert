@@ -34,7 +34,7 @@ class AbsSummary(Dataset):
         xcol:str,
         ycol:str,
         tokenizer:BertTokenizerFast,
-        xmax:int=512,
+        xmax:int=1024,
         ymax:int=128,
         nrows:Union[None,int]=None
     ):
