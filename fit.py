@@ -61,7 +61,14 @@ def fit(
                 loss.backward()
                 optimizer.step()
 
-            pbar.set_description(f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, latest lr: {optimizer.param_groups[0]['lr']}")
+            pbar.set_description(
+                f"""
+                epoch: {e+1},
+                loss: {loss.item():.3f},
+                avg: {avg_loss:.2f},
+                lr: {optimizer.param_groups[0]['lr']}
+                """
+            )
         return avg_loss
 
     best_loss = float('inf')
