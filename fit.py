@@ -34,7 +34,8 @@ def fit(
     valid_loader:Union[None,DataLoader]=None,
     epochs:int=5,
     lr:float=1e-5,
-    ckpt_path:Union[str,None]=None
+    ckpt_path:Union[str,None]=None,
+    device=torch.device
 ):
     def run_epoch(split):
         is_train = split == 'train'

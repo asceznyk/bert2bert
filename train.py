@@ -47,7 +47,15 @@ def main(args):
             pin_memory=False
         )
 
-    fit(model, train_loader, valid_loader, epochs=args.epochs, lr=args.lr, ckpt_path=args.ckpt_path)
+    fit(
+        model,
+        train_loader,
+        valid_loader,
+        epochs=args.epochs,
+        lr=args.lr,
+        ckpt_path=args.ckpt_path,
+        device
+    )
 
     del model
     del tokenizer
