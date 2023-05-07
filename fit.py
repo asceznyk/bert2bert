@@ -67,7 +67,7 @@ def fit(
 
     best_loss = float('inf')
     optimizer = optim.Adam(model.parameters(), lr=lr)
-    scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=1e-3, steps_per_epoch=len(train_loader), epochs=EPOCHS)
+    scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=1e-3, steps_per_epoch=len(train_loader), epochs=epochs)
     for e in range(epochs):
         train_loss = run_epoch('train')
         valid_loss = run_epoch('valid') if valid_loader is not None else train_loss
