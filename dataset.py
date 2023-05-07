@@ -35,7 +35,7 @@ class AbsSummary(Dataset):
         ycol:str,
         tokenizer:BertTokenizerFast,
         xmax:int=512,
-        ymax:int=48,
+        ymax:int=128,
         nrows:Union[None,int]=None
     ):
         self.df = light_load_csv(data_path, [xcol, ycol], nrows=nrows)
