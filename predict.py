@@ -9,7 +9,10 @@ from dataset import *
 from fit import *
 
 def main(args):
-    text = args.text
+    text_file = args.text_file
+
+    tf = open(text_file, 'r')
+    text = tf.read()
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -46,7 +49,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--text', type=str, help='raw text')
+    parser.add_argument('--text_file', type=str, help='raw text file')
     parser.add_argument('--ckpt_path', type=str, help='model path after training')
     options = parser.parse_args()
     main(options)
