@@ -43,6 +43,9 @@ def fit(
         model.train(is_train)
         loader = train_loader if is_train else valid_loader
 
+        print(f"epoch: {e+1}/{epochs}")
+        print(f"lr: {optimizer.param_groups[0]['lr']}")
+
         avg_loss = 0
         pbar = tqdm(enumerate(loader), total=len(loader))
         for step, batch in pbar:
@@ -50,9 +53,11 @@ def fit(
             x, xmask, labels, y, ymask = batch
 
             with torch.set_grad_enabled(is_train):
-                outputs = model(input_ids=x, attention_mask=xmask,
-                                labels=labels, decoder_attention_mask=ymask,
-                                return_dict=True)
+                outputs = model(
+                    input_ids=x, attention_mask=xmask,
+                    labels=labels, decoder_attention_mask=ymask,
+                    return_dict=True
+                )
                 loss = outputs.loss
                 avg_loss += loss.item() / len(loader)
 
@@ -61,14 +66,7 @@ def fit(
                 loss.backward()
                 optimizer.step()
 
-            pbar.set_description(
-                f"""
-                epoch: {e+1},
-                loss: {loss.item():.3f},
-                avg: {avg_loss:.2f},
-                lr: {optimizer.param_groups[0]['lr']}
-                """
-            )
+            pbar.set_description(f"loss: {loss.item():.3f}, avg: {avg_loss:.2f}")
         return avg_loss
 
     best_loss = float('inf')
