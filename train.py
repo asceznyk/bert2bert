@@ -54,7 +54,7 @@ def main(args):
         epochs=args.epochs,
         lr=args.lr,
         ckpt_path=args.ckpt_path,
-        device
+        device=device
     )
 
     del model
