@@ -16,6 +16,8 @@ os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 
 
 def main(args):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
     train_file, valid_file = args.train_file, args.valid_file
     xcol, ycol = args.xcol, args.ycol
     nrows = args.nrows
